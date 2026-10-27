@@ -88,7 +88,9 @@ python notebooks/run_tests.py
 python notebooks/quantum_analysis.py
 ```
 
-Open `src/Main.qs` in VS Code and run `Main` for Learning Mode.
+Open `src/Main.qs` in VS Code and run `Main` for Learning Mode. Learning Mode
+shows the five tickets generated in the current run (newest first), with the
+newest ticket highlighted as the primary quantum ticket.
 
 ## A critical distinction
 

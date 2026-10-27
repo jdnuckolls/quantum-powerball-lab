@@ -78,6 +78,16 @@ namespace QuantumPowerballLab {
         return (SortInts(whiteBalls), powerball);
     }
 
+    /// Generates `count` tickets and returns them newest-first.
+    operation GenerateRecentTickets(count : Int) : (Int[], Int)[] {
+        mutable tickets : (Int[], Int)[] = [];
+        for _ in 1..count {
+            let ticket = GenerateQuantumTicket();
+            set tickets = [ticket] + tickets;
+        }
+        return tickets;
+    }
+
     /// Teaching mode: exposes the path from qubit measurement to a ticket.
     operation LearningDemo() : Unit {
         Message("QUANTUM POWERBALL LAB — LEARNING MODE");
@@ -91,8 +101,15 @@ namespace QuantumPowerballLab {
         Message("5. Reject values outside the desired range to preserve uniformity.");
         Message("6. Repeat until five unique white balls and one Powerball exist.");
 
-        let (whiteBalls, powerball) = GenerateQuantumTicket();
+        let recent = GenerateRecentTickets(5);
+        let (whiteBalls, powerball) = recent[0];
         Message($"Quantum ticket: {whiteBalls} | Powerball: {powerball}");
+        Message("");
+        Message("Recent tickets (newest first):");
+        for i in 0..Length(recent) - 1 {
+            let (whites, pb) = recent[i];
+            Message($"  {whites} | Powerball: {pb}");
+        }
         Message("");
         Message("Important: quantum randomness does NOT predict a future lottery drawing.");
     }
